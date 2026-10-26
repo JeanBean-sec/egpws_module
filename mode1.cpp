@@ -91,6 +91,7 @@ void Mode1::EvaluateMode(double Altitude, double Drate) {
 	EvaluatePullUp(Altitude, Drate);
     if (Pullup) {
         //speak "Pull Up"
+		SinkRate = false;
     }
     else if (SinkRate && !WasSinkRate) {
 		//speak "Sink Rate"
