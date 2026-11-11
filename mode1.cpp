@@ -80,6 +80,7 @@ void Mode1::EvaluatePullUp(double Altitude, double Drate) {
 }
 
 Mode1::Mode1() {
+    State = ACTIVE;
     WasSinkRate = false;
     SinkRate = false;
     Pullup = false;
@@ -91,7 +92,6 @@ void Mode1::EvaluateMode(double Altitude, double Drate) {
 	EvaluatePullUp(Altitude, Drate);
     if (Pullup) {
         //speak "Pull Up"
-		SinkRate = false;
     }
     else if (SinkRate && !WasSinkRate) {
 		//speak "Sink Rate"
@@ -99,3 +99,4 @@ void Mode1::EvaluateMode(double Altitude, double Drate) {
     WasSinkRate = SinkRate;
 };
 
+//todo, kalman filtering

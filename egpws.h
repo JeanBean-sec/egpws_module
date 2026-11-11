@@ -7,7 +7,7 @@ typedef enum {
 
 class Mode1 {
 private:
-
+    ModeState State;
     bool WasSinkRate;
     bool SinkRate;
     bool Pullup;
@@ -22,7 +22,7 @@ public:
 
 class Mode2A {
 private:
-
+	ModeState State;
     double LastAltitude;
     bool Terrain;
     bool Pullup;

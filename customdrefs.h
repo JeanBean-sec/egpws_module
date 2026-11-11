@@ -27,9 +27,21 @@ inline void SetPullUpCB(void* inRefcon, int inValue) {
 }
 
 
+//TERRAIN
+extern XPLMDataRef drTerrain;
+extern int drTerrainValue;
+
+inline int GetTerrainCB(void* inRefcon) {
+	return drTerrainValue;
+}
+
+inline void SetTerrainCB(void* inRefcon, int inValue) {
+	drTerrainValue = inValue;
+}
+
 
 inline static void customdatarefinitialization() {
-	// DataRef setup for sinkrate activation
+	// DataRef setup for sinkrate activation mode 1
 	drSinkRate = XPLMRegisterDataAccessor(
 		"cereza/egpws/sinkrate",
 		xplmType_Int,
@@ -43,7 +55,8 @@ inline static void customdatarefinitialization() {
 		NULL, NULL);
 	drSinkRate = XPLMFindDataRef("cereza/egpws/sinkrate");
 	XPLMSetDatai(drSinkRate, 0); // Initialize to 0 (inactive)
-	// DataRef setup for pullup activation
+
+	// DataRef setup for pullup activation mode 1
 	drPullUp = XPLMRegisterDataAccessor(
 		"cereza/egpws/pullup",
 		xplmType_Int,
@@ -57,4 +70,19 @@ inline static void customdatarefinitialization() {
 		NULL, NULL);
 	drPullUp = XPLMFindDataRef("cereza/egpws/pullup");
 	XPLMSetDatai(drPullUp, 0); // Initialize to 0 (inactive)
+
+	// DataRef setup for terrain activation mode 2A
+	drTerrain = XPLMRegisterDataAccessor(
+		"cereza/egpws/terrain",
+		xplmType_Int,
+		1,
+		GetTerrainCB, SetTerrainCB,
+		NULL, NULL,
+		NULL, NULL,
+		NULL, NULL,
+		NULL, NULL,
+		NULL, NULL,
+		NULL, NULL);
+	drTerrain = XPLMFindDataRef("cereza/egpws/terrain");
+	XPLMSetDatai(drTerrain, 0); // Initialize to 0 (inactive)
 }

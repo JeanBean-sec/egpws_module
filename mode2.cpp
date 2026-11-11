@@ -36,6 +36,7 @@ void Mode2A::EvaluatePullUp(float elapsedsincelastcall, double Altitude, double 
 
 Mode2A::Mode2A() {
 	//this is for the alert states and misc variables
+	State = ACTIVE;
 	LastAltitude = 0.0;
 	Terrain = false;
 	Pullup = false;
@@ -43,4 +44,11 @@ Mode2A::Mode2A() {
 
 void Mode2A::EvaluateMode(float elapsedsincelastcall, double Altitude, double Airspeed) {
 	//this is for the alerts
+	EvaluateTerrainClosure(elapsedsincelastcall, Altitude, Airspeed);
+	if (Terrain) {
+		XPLMSetDatai(XPLMFindDataRef("cereza/egpws/terrain"), 1);
+	}
+	else {
+		XPLMSetDatai(XPLMFindDataRef("cereza/egpws/terrain"), 0);
+	}
 }
